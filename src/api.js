@@ -76,7 +76,7 @@ export async function apiGetTweets() {
 
 //트윗 1개 불러오기
 export async function apiGetTweet(props) {
-  const tweetId = props[1].tweetId;
+  const tweetId = props[1]?.tweetId;
   try {
     return await fetch(`${BASE_URL}/tweets/${tweetId}`).then((res) => res.json());
   } catch (error) {
@@ -97,5 +97,16 @@ export async function apiPostCommentCreate({ data, tweetId }) {
     }).then((res) => res.json());
   } catch (e) {
     console.log(e);
+  }
+}
+
+// 프로필 페이지에서 트윗 가져오기
+export async function apiGetProfileTweets(props) {
+  console.log(props);
+  const { userId } = props.queryKey[1];
+  try {
+    return await fetch(`${BASE_URL}/tweets/${userId}/profile`).then((res) => res.json());
+  } catch (error) {
+    console.log(error);
   }
 }
